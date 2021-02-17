@@ -13,4 +13,4 @@ jobs:
         with:
           java-version: 11
       - name: Test app
-        run: mvn test
+        run: mvn --batch-mode --update-snapshots test
