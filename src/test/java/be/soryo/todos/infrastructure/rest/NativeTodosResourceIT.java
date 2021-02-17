@@ -1,9 +1,9 @@
-package be.soryo;
+package be.soryo.todos.infrastructure.rest;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class NativeTodosApiIT extends TodosApiTest {
+public class NativeTodosResourceIT extends TodosResourceTest {
 
     // Execute the same tests but in native mode.
 }
