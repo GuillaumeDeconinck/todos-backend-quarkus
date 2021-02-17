@@ -1,20 +1,24 @@
 package be.soryo.todos.infrastructure.rest;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.logging.Logger;
+import be.soryo.application.services.TodosService;
+import be.soryo.domain.models.Todo;
+import io.smallrye.mutiny.Multi;
 
-@Path("/hello-resteasy")
+@Path("/todos")
 public class TodosResource {
 
-    private static final Logger LOG = Logger.getLogger(TodosResource.class);
+    @Inject
+    TodosService todosService;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Multi<Todo> hello() {
+        return todosService.listTodos();
     }
 }
