@@ -1,4 +1,4 @@
-package be.soryo.domain.models;
+package be.soryo.todos.domain.models;
 
 import io.vertx.mutiny.sqlclient.Row;
 

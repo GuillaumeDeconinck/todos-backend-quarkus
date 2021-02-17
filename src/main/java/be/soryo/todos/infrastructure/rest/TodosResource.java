@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import be.soryo.application.services.TodosService;
-import be.soryo.domain.models.Todo;
+import be.soryo.todos.application.services.TodosService;
+import be.soryo.todos.domain.models.Todo;
 import io.smallrye.mutiny.Multi;
 
 @Path("/todos")

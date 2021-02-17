@@ -3,7 +3,7 @@ package be.soryo.todos.infrastructure.pgsql;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import be.soryo.domain.models.Todo;
+import be.soryo.todos.domain.models.Todo;
 import io.quarkus.reactive.datasource.ReactiveDataSource;
 import io.smallrye.mutiny.Multi;
 import io.vertx.mutiny.pgclient.PgPool;
