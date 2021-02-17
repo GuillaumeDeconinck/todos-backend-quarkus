@@ -1,15 +1,19 @@
-# todos-api project
+# Todos' backend (Quarkus ver)
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/> .
-
-## Running the application in dev mode
+## How to run the application in dev mode ?
 
 You can run your application in dev mode that enables live coding using:
 
 ```shell script
 ./mvnw compile quarkus:dev
+```
+
+If you do not have a Postgres container running, you can launch one with:
+
+```shell script
+docker-compose up -d
 ```
 
 ## Packaging and running the application
@@ -48,19 +52,3 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/todos-api-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling.html>.
-
-## Logging JSON
-
-This example let you go faster with your jet aircraft, your speed is logged when you send a new request.
-
-When you reach the speed of sound, a "Sonic Boom" error is going to be thrown and logged.
-
-**Boom!**
-
-Guide: <https://quarkus.io/guides/logging#json-logging>
-
-## RESTEasy Reactive
-
-A Hello World RESTEasy Reactive resource
-
-Guide: <https://quarkus.io/guides/getting-started-reactive>
