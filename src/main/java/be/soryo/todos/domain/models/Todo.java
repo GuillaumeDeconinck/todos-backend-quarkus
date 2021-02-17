@@ -3,9 +3,9 @@ package be.soryo.todos.domain.models;
 import io.vertx.mutiny.sqlclient.Row;
 
 public class Todo {
-  private Long id;
-  private String title;
-  private boolean completed;
+  Long id;
+  String title;
+  boolean completed;
 
   public Todo(Long id, String title, boolean completed) {
     this.id = id;
