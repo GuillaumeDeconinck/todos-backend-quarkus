@@ -1,4 +1,4 @@
-package be.soryo.todos.infrastructure.rest;
+package be.soryo;
 
 import io.quarkus.test.junit.NativeImageTest;
 

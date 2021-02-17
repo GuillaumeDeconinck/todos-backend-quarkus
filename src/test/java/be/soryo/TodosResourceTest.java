@@ -1,4 +1,4 @@
-package be.soryo.todos.infrastructure.rest;
+package be.soryo;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -10,12 +10,12 @@ import static org.hamcrest.CoreMatchers.is;
 public class TodosResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
+    public void testListTodosEndpoint() {
         given()
-          .when().get("/hello-resteasy")
+          .when().get("/todos")
           .then()
              .statusCode(200)
-             .body(is("Hello RESTEasy"));
+             .body(is("[]"));
     }
 
 }
