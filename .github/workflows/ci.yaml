@@ -21,6 +21,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
   build:
     runs-on: ubuntu-20.04
+    needs: tests
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ci/add-build-push-docker-workflow'
     steps:
       - uses: actions/checkout@v2
