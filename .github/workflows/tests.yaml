@@ -3,8 +3,8 @@ name: Tests
 on:
   push:
     branches:
-      - "*"
-      - "!main" # Everything except main (docker_publish does the job already)
+      - "**"        # Matches every branch
+      - "!main"     # But not main (docker_publish does the job already)
 
 jobs:
   tests:
