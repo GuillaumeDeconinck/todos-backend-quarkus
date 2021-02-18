@@ -29,7 +29,6 @@ public class TodosService {
   }
 
   public Uni<Long> createTodo(TodoCreateDTO todo) {
-    logger.info("Received a new Todo");
     return todosDao.createTodo(todo);
   }
 }

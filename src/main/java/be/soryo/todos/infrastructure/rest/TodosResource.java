@@ -47,12 +47,12 @@ public class TodosResource {
 
     @POST
     public Uni<Response> createTodo(TodoCreateDTO todo) {
-        logger.info("Received a new Todo (rest)");
         return todosService.createTodo(todo)
             .onItem().transform(id -> URI.create("/todos/" + id))
             .onItem().transform(uri -> Response.created(uri).build());
     }
 
+    // TODO: to implement correctly
     @DELETE
     @Path("/{id}")
     public Uni<Response> deleteTodo(int id) {
