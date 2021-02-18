@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todos-api-quarkus-ingress
+  namespace: todos
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+spec:
+  tls:
+    - hosts:
+        - api.soryo.be
+      secretName: api-soryo-be-certificate
+  rules:
+    - host: api.soryo.be
+      http:
+        paths:
+          - path: /todos/quarkus
+            pathType: Prefix
+            backend:
+              service:
+                name: todos-api-quarkus-service
+                port:
+                  number: 80
