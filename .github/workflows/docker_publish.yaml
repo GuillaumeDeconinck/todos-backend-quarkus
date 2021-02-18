@@ -5,13 +5,11 @@ on:
     # Publish `main` as Docker `latest` image.
     branches:
       - main
+      - ci/add-build-push-docker-workflow
 
     # Publish `v1.2.3` tags as releases.
     tags:
       - v*
-
-  # Run tests for any PRs.
-  pull_request:
 
 env:
   IMAGE_NAME: todos-api-quarkus
