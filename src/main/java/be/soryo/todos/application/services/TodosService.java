@@ -2,6 +2,7 @@ package be.soryo.todos.application.services;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
@@ -14,6 +15,7 @@ import io.smallrye.mutiny.Uni;
 @ApplicationScoped
 public class TodosService {
   @Inject
+  @Named("TodosRepositoryImpl")
   TodosDAO todosDao;
 
   private static final Logger logger = Logger.getLogger(TodosService.class);
