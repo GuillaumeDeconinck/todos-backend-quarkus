@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todos-api-quarkus
+  namespace: todos
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: todos-api-quarkus
+  template:
+    metadata:
+      labels:
+        app: todos-api-quarkus
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: todos-api-quarkus
+        image: registry.gitlab.com/mci-knitting-solutions/ignace-front-ts:v0-1-6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 32Mi
