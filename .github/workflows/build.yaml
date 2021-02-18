@@ -42,5 +42,7 @@ jobs:
           push: true
           file: src/main/docker/Dockerfile.native
           tags: guillaumedeconinck/todos-backend-quarkus:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.DOCKER_PASSWORD }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
