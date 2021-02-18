@@ -13,11 +13,11 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 @QuarkusTestResource(ContainerInitializer.class)
 public class PostgresDBTestResource {
   public static class ContainerInitializer implements QuarkusTestResourceLifecycleManager {
-    private PostgreSQLContainer postgresContainer;
+    private PostgreSQLContainer<?> postgresContainer;
 
     @Override
     public Map<String, String> start() {
-      this.postgresContainer = new PostgreSQLContainer("postgres").withDatabaseName("todos_quarkus");
+      this.postgresContainer = new PostgreSQLContainer<>("postgres").withDatabaseName("todos_quarkus");
       this.postgresContainer.start();
       return getConfigurationParameters();
     }
