@@ -2,9 +2,11 @@ package be.soryo.todos.infrastructure.pgsql;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import be.soryo.todos.application.dto.TodoCreateDTO;
 import be.soryo.todos.domain.models.Todo;
+import be.soryo.todos.domain.repositories.TodosRepository;
 import io.quarkus.reactive.datasource.ReactiveDataSource;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -13,7 +15,8 @@ import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
 
 @ApplicationScoped
-public class TodosDAO {
+@Named("TodosRepositoryImpl")
+public class TodosDAO implements TodosRepository {
   @Inject
   @ReactiveDataSource("postgresTodos")
   PgPool client;
