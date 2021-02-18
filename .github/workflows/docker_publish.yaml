@@ -1,11 +1,10 @@
-name: Docker
+name: Build & push Docker (tests included)
 
 on:
   push:
     # Publish `main` as Docker `latest` image.
     branches:
       - main
-      - ci/add-build-push-docker-workflow
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -15,8 +14,6 @@ env:
   IMAGE_NAME: todos-api-quarkus
 
 jobs:
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
