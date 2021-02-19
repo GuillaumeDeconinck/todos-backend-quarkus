@@ -4,8 +4,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.logging.Logger;
-
 import be.soryo.todos.application.dto.TodoCreateDTO;
 import be.soryo.todos.domain.models.Todo;
 import be.soryo.todos.infrastructure.pgsql.TodosDAO;
@@ -18,8 +16,6 @@ public class TodosService {
   @Named("TodosRepositoryImpl")
   TodosDAO todosDao;
 
-  private static final Logger logger = Logger.getLogger(TodosService.class);
-
   public Multi<Todo> listTodos() {
     return todosDao.listTodos();
   }
@@ -30,5 +26,17 @@ public class TodosService {
 
   public Uni<Long> createTodo(TodoCreateDTO todo) {
     return todosDao.createTodo(todo);
+  }
+
+  public Uni<Void> updateTodo(Long id, TodoCreateDTO todo) {
+    return todosDao.updateTodo(id, todo);
+  }
+
+  public Uni<Void> patchTodo(Long id, TodoCreateDTO todo) {
+    return todosDao.updateTodo(id, todo);
+  }
+
+  public Uni<Void> deleteTodo(Long id) {
+    return todosDao.deleteTodo(id);
   }
 }

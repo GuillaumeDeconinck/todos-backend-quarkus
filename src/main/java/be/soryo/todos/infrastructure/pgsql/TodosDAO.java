@@ -38,4 +38,32 @@ public class TodosDAO implements TodosRepository {
       .execute(Tuple.of(todo.title, todo.completed.booleanValue()))
       .onItem().transform(set -> set.iterator().next().getLong("id"));
   }
+
+  public Uni<Void> updateTodo(Long id, TodoCreateDTO todo) {
+    return client.preparedQuery("UPDATE todos SET title=$1, completed=$2 WHERE id = $3")
+      .execute(Tuple.of(todo.title, todo.completed, id))
+      .onItem().transform(set -> null);
+  }
+
+  // TODO: handle patch for completed as well
+  public Uni<Void> patchTodo(Long id, TodoCreateDTO todo) {
+    // boolean hasChanged = false;
+    return this.getTodo(id)
+      .onItem().transform(oldTodo -> {
+        if(todo.title != null && todo.title != oldTodo.getTitle()) {
+          // hasChanged = true;
+          return client.preparedQuery("UPDATE todos SET title=$1 WHERE id = $2")
+            .execute(Tuple.of(todo.title, id));
+        } else {
+          return Uni.createFrom().item(null);
+        }
+      })
+      .onItem().transform(set -> null);
+  }
+
+  public Uni<Void> deleteTodo(Long id) {
+    return client.preparedQuery("DELETE FROM todos WHERE id = $1")
+      .execute(Tuple.of(id))
+      .onItem().transform(set -> null);
+  }
 }
