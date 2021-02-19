@@ -7,14 +7,14 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-
-import org.jboss.logging.Logger;
 
 import be.soryo.todos.application.dto.TodoCreateDTO;
 import be.soryo.todos.application.services.TodosService;
@@ -27,8 +27,6 @@ import io.smallrye.mutiny.Uni;
 @Consumes(MediaType.APPLICATION_JSON)
 public class TodosResource {
 
-    private static final Logger logger = Logger.getLogger(TodosResource.class);
-
     @Inject
     TodosService todosService;
 
@@ -39,7 +37,7 @@ public class TodosResource {
 
     @GET
     @Path("/{id}")
-    public Uni<Response> getTodo(int id) {
+    public Uni<Response> getTodo(@PathParam("id") int id) {
         return todosService.getTodo(Long.valueOf(id))
             .onItem().transform(todo -> todo != null ? Response.ok(todo) : Response.status(Status.NOT_FOUND))
             .onItem().transform(ResponseBuilder::build);
@@ -52,12 +50,27 @@ public class TodosResource {
             .onItem().transform(uri -> Response.created(uri).build());
     }
 
-    // TODO: to implement correctly
+    @PUT
+    @Path("/{id}")
+    public Uni<Response> updateTodo(@PathParam("id") int id, TodoCreateDTO todoToUpdate) {
+        return todosService.updateTodo(Long.valueOf(id), todoToUpdate)
+            .onItem().transform(notUsed -> Response.status(Status.NO_CONTENT))
+            .onItem().transform(ResponseBuilder::build);
+    }
+
+    // @PATCH
+    // @Path("/{id}")
+    // public Uni<Response> patchTodo(@PathParam("id") int id, TodoCreateDTO todoToUpdate) {
+    //     return todosService.updateTodo(Long.valueOf(id), todoToUpdate)
+    //         .onItem().transform(notUsed -> Response.status(Status.NO_CONTENT))
+    //         .onItem().transform(ResponseBuilder::build);
+    // }
+
     @DELETE
     @Path("/{id}")
-    public Uni<Response> deleteTodo(int id) {
-        return todosService.getTodo(Long.valueOf(id))
-            .onItem().transform(todo -> todo != null ? Response.ok(todo) : Response.status(Status.NOT_FOUND))
+    public Uni<Response> deleteTodo(@PathParam("id") int id) {
+        return todosService.deleteTodo(Long.valueOf(id))
+            .onItem().transform(notUsed -> Response.status(Status.NO_CONTENT))
             .onItem().transform(ResponseBuilder::build);
     }
 }
