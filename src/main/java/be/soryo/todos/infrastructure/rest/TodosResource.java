@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -58,13 +59,13 @@ public class TodosResource {
             .onItem().transform(ResponseBuilder::build);
     }
 
-    // @PATCH
-    // @Path("/{id}")
-    // public Uni<Response> patchTodo(@PathParam("id") int id, TodoCreateDTO todoToUpdate) {
-    //     return todosService.updateTodo(Long.valueOf(id), todoToUpdate)
-    //         .onItem().transform(notUsed -> Response.status(Status.NO_CONTENT))
-    //         .onItem().transform(ResponseBuilder::build);
-    // }
+    @PATCH
+    @Path("/{id}")
+    public Uni<Response> patchTodo(@PathParam("id") int id, TodoCreateDTO todoToUpdate) {
+        return todosService.updateTodo(Long.valueOf(id), todoToUpdate)
+            .onItem().transform(notUsed -> Response.status(Status.NO_CONTENT))
+            .onItem().transform(ResponseBuilder::build);
+    }
 
     @DELETE
     @Path("/{id}")
