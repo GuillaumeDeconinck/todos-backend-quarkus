@@ -63,15 +63,31 @@ public class TodosResourceTest {
         .body("title", is(updatedTodo.title)).body("completed", is(updatedTodo.completed));
   }
 
+  
   @Test
   @Order(6)
+  public void testPatchEndpoint() {
+    updatedTodo = new TodoCreateDTO("Test todo updated", false);
+    given().when().contentType(ContentType.JSON).accept(ContentType.JSON).body(updatedTodo).patch("/todos/" + this.todoId)
+        .then().statusCode(204).body(is(""));
+  }
+
+  @Test
+  @Order(7)
+  public void testGetEndpoint_Patched() {
+    given().when().contentType(ContentType.JSON).accept(ContentType.JSON).get("/todos/" + this.todoId).then().statusCode(200)
+        .body("title", is(updatedTodo.title)).body("completed", is(updatedTodo.completed));
+  }
+
+  @Test
+  @Order(8)
   public void testDeleteEndpoint() {
     given().when().contentType(ContentType.JSON).accept(ContentType.JSON).delete("/todos/" + this.todoId).then()
         .statusCode(204).body(is(""));
   }
 
   @Test
-  @Order(7)
+  @Order(9)
   public void testGetEndpoint_Deleted() {
     given().when().contentType(ContentType.JSON).accept(ContentType.JSON).get("/todos/" + this.todoId).then()
         .statusCode(404);

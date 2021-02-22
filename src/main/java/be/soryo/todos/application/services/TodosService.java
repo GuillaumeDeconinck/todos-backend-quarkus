@@ -33,7 +33,13 @@ public class TodosService {
   }
 
   public Uni<Void> patchTodo(Long id, TodoCreateDTO todo) {
-    return todosDao.updateTodo(id, todo);
+    return this.getTodo(id)
+      .onItem().transform(oldTodo -> {
+        todo.title = todo.title != null ? todo.title : oldTodo.getTitle();
+        todo.completed = todo.completed != null ? todo.completed : oldTodo.getCompleted();
+        return updateTodo(id, todo);
+      })
+      .onItem().transform(v -> null);
   }
 
   public Uni<Void> deleteTodo(Long id) {
